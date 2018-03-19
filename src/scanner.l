@@ -1,10 +1,10 @@
 alpha [a-zA-Z]
 digit [0-9]
-
+neg -
 %%
 [ \t]		;
-[ \n]   { yylineno = yylineno + 1;}
-
+[ \n]   { yylineno = yylineno + 1;}  
+"[-" {printf("Negative %d\n",yylineno);exit(0);} 
 int	{ yylval.iValue = INT; return INT; }
 float { yylval.iValue = FLOAT; return FLOAT;}
 void {yylval.iValue=VOID; return VOID;}
@@ -25,6 +25,7 @@ printf  return PRINTF;
 scanf return SCANF;
 struct 	return STRUCT;
 ^"#include ".+ return PREPROC;
+
 {digit}+       { yylval.str = strdup(yytext); return NUM;}
 ({digit}*\.{digit}+)|({digit}+\.{digit}*) {yylval.str = strdup(yytext); return REAL;}
 {alpha}({alpha}|{digit})* { yylval.str = strdup(yytext); return ID ;}

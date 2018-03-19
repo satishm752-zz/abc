@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+
 using namespace std;
 
 bool flag_function = false;
@@ -155,3 +156,61 @@ int check2(char* a)
 	else
 		return 0;
 }
+
+string check3(char* a)
+{
+
+	int current_scope = cscope.top();
+	rangeit eqit = st.equal_range(a);
+	stit it, res;
+	bool flag = false;
+
+	if(eqit.first == eqit.second)
+	{
+		return "NO";
+	}
+
+	for( it = eqit.first ; it != eqit.second ; it++ )
+	{
+		if(it->second.scope <= current_scope && !ef[it->second.scope])
+			res = it, flag = true;
+	}
+	
+
+	if(flag){
+	
+		return res->second.dim;	
+
+	}
+	else{
+		return "NO";
+	}
+
+}
+
+
+void check_bound(char *a, char *b){
+
+
+string s2 =check3(b);
+
+if(s2!="NO"){
+
+	int num1= atoi(a);
+	int num2= stoi(s2);
+
+	
+	if(num1>=num2){
+		cout<<"Out of bound access. size = "<<num2<<",    "<<num1<<"th element is accessed\n";
+	}
+	
+
+}
+
+
+
+
+}
+
+
+

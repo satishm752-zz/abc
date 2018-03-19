@@ -16,6 +16,7 @@
 %}
 %token<str> ID NUM REAL
 %token SIZEOF
+
 %token PTR DOT
 %token TYPEDEF STRUCT
 %token<iValue> INT FLOAT VOID
@@ -100,7 +101,7 @@ Declaration: Type Assignment ';'
 /* Assignment block */
 Assignment: ID  assign_operator Expression 
 	
-	| ID '[' Expression ']' assign_operator Expression
+	| ID '[' Expression ']' {check_bound($3,$1);} assign_operator Expression
 	| ID ',' Assignment
 	{
 		char ass[100];

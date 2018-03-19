@@ -28,11 +28,11 @@ int main()
 {
 	
 	int a;
-	a="sam";
+	
 	
 	int m[100];
 	
-	
+	m[-10]=10;
 
 	return 0 ;
 }
