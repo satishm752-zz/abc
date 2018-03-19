@@ -32,7 +32,7 @@ int main()
 	
 	int m[100];
 	
-	m[-10]=10;
+	
 
 	return 0 ;
 }

@@ -88,7 +88,7 @@ Declaration: Type Assignment ';'
 	}
 	| FunctionCall ';' 	
 	| ID '[' Expression ']' ';' //1
-	| Type ID '[' Expression ']' ';' { insert($2,$1,scope,$4,ARRAY); } 
+	| Type ID '[' Expression ']' ';' { insert($2,$1,scope,$4,0); } 
 	| StructStmt ';'
 	| error	
 	;
@@ -230,14 +230,14 @@ Function: Type ID '(' ArgListOpt ')' CompoundStmt
 				if($1 != INT)
 					printf("Return Type Mismatch in function name: %s ( INT required )\n", $2);
 				else
-					insert($2,$1,0,"0",FUNCTION);
+					insert($2,$1,0,"0",1);
 			}
 			else if(num_check == 1 && $1 != FLOAT)
 			{
 				if($1 != FLOAT)
 					printf("Return Type Mismatch in function name: %s ( FLOAT required )\n", $2);
 				else
-					insert($2,$1,0,"0",FUNCTION);			
+					insert($2,$1,0,"0",1);			
 			}
 			else
 			{
@@ -250,7 +250,7 @@ Function: Type ID '(' ArgListOpt ')' CompoundStmt
 				}
 				else
 				{
-					insert($2,$1,0,"0",FUNCTION);
+					insert($2,$1,0,"0",1);
 				}
 				flag_function = false;
 				cscope.pop();
@@ -320,7 +320,7 @@ Else : ELSE CompoundStmt
 	;
 
 /* Struct Statement */
-StructStmt : STRUCT ID '{' Type Assignment ';' '}' { insert($2,STRUCT,0,"0",$4); } 
+StructStmt : STRUCT ID '{' Type Assignment ';' '}' { insert($2,STRUCT,0,"0",0); } 
 	;
 
 /* Print Function */
