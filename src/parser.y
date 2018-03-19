@@ -36,7 +36,7 @@
 %left '*' '/'
 
 %type<iValue> Type
-%type<str> Assignment ArrayUsage assign_operator Expression Expr RelOP FunctionCall CompoundStmt StmtList Stmt
+%type<str> Assignment  assign_operator Expression Expr RelOP FunctionCall CompoundStmt StmtList Stmt
 
 %union 
 	{
@@ -64,7 +64,7 @@ Declaration: Type Assignment ';'
 	{
 		if( check1($2) )
 		{
-			insert($2,$1,cscope.top(),1,0); 
+			insert($2,$1,cscope.top(),"1",0); 
 			
 		}
 		else
@@ -86,16 +86,21 @@ Declaration: Type Assignment ';'
 		
 	}
 	| FunctionCall ';' 	
-	| ArrayUsage1 ';' //1
-	| Type ArrayUsage ';' //{ insert($2,$1,scope,0,ARRAY); } 
+	| ID '[' Expression ']' ';' //1
+	| Type ID '[' Expression ']' ';' { insert($2,$1,scope,$4,ARRAY); } 
 	| StructStmt ';'
 	| error	
 	;
 
+
+
+
+
+
 /* Assignment block */
 Assignment: ID  assign_operator Expression 
 	
-	| ArrayUsage assign_operator Expression
+	| ID '[' Expression ']' assign_operator Expression
 	| ID ',' Assignment
 	{
 		char ass[100];
@@ -197,7 +202,7 @@ Expression: Expression '+'  Expression
 			$$ = $1; 
 			
 		}
-	| 	ArrayUsage 
+	| 	ID '[' Expression ']' 
 	| 	FunctionCall
 	;
 
@@ -207,9 +212,7 @@ FunctionCall : ID'('')'
 	;
 
 /* Array Usage */
-ArrayUsage : ID '[' Expression ']'  { insert($1,q,scope,$3,ARRAY); } 
-	;
-ArrayUsage1 : ID '[' Expression ']'
+
              ;
 /* Function block */
 Function: Type ID '(' ArgListOpt ')' CompoundStmt 
@@ -226,14 +229,14 @@ Function: Type ID '(' ArgListOpt ')' CompoundStmt
 				if($1 != INT)
 					printf("Return Type Mismatch in function name: %s ( INT required )\n", $2);
 				else
-					insert($2,$1,0,0,FUNCTION);
+					insert($2,$1,0,"0",FUNCTION);
 			}
 			else if(num_check == 1 && $1 != FLOAT)
 			{
 				if($1 != FLOAT)
 					printf("Return Type Mismatch in function name: %s ( FLOAT required )\n", $2);
 				else
-					insert($2,$1,0,0,FUNCTION);			
+					insert($2,$1,0,"0",FUNCTION);			
 			}
 			else
 			{
@@ -246,7 +249,7 @@ Function: Type ID '(' ArgListOpt ')' CompoundStmt
 				}
 				else
 				{
-					insert($2,$1,0,0,FUNCTION);
+					insert($2,$1,0,"0",FUNCTION);
 				}
 				flag_function = false;
 				cscope.pop();
@@ -316,7 +319,7 @@ Else : ELSE CompoundStmt
 	;
 
 /* Struct Statement */
-StructStmt : STRUCT ID '{' Type Assignment ';' '}' { insert($2,STRUCT,0,0,$4); } 
+StructStmt : STRUCT ID '{' Type Assignment ';' '}' { insert($2,STRUCT,0,"0",$4); } 
 	;
 
 /* Print Function */

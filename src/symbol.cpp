@@ -7,7 +7,7 @@ struct symbolTable
 	string name;
 	int type;
 	int scope;
-	int dim;
+	string dim;
 	int other;
 };
 
@@ -15,9 +15,10 @@ multimap<string,symbolTable> st;
 typedef multimap<string, symbolTable>::iterator stit;
 typedef pair< stit, stit > rangeit;
 
-void insert(char *n, int type, int scope,int dim, int other)
+void insert(char *n, int type, int scope,char* d, int other)
 {
 	string name(n);
+    string dim(d);
 	struct symbolTable sym;
 	sym.name = name;
 	sym.type = type;
