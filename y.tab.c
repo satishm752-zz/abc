@@ -1470,7 +1470,7 @@ yyreduce:
 
   case 10:
 #line 91 "parser.y" /* yacc.c:1646  */
-    { insert((yyvsp[-4].str),(yyvsp[-5].iValue),scope,(yyvsp[-2].str),ARRAY); }
+    { insert((yyvsp[-4].str),(yyvsp[-5].iValue),scope,(yyvsp[-2].str),0); }
 #line 1475 "y.tab.c" /* yacc.c:1646  */
     break;
 
@@ -1624,14 +1624,14 @@ yyreduce:
 				if((yyvsp[-5].iValue) != INT)
 					printf("Return Type Mismatch in function name: %s ( INT required )\n", (yyvsp[-4].str));
 				else
-					insert((yyvsp[-4].str),(yyvsp[-5].iValue),0,"0",FUNCTION);
+					insert((yyvsp[-4].str),(yyvsp[-5].iValue),0,"0",1);
 			}
 			else if(num_check == 1 && (yyvsp[-5].iValue) != FLOAT)
 			{
 				if((yyvsp[-5].iValue) != FLOAT)
 					printf("Return Type Mismatch in function name: %s ( FLOAT required )\n", (yyvsp[-4].str));
 				else
-					insert((yyvsp[-4].str),(yyvsp[-5].iValue),0,"0",FUNCTION);			
+					insert((yyvsp[-4].str),(yyvsp[-5].iValue),0,"0",1);			
 			}
 			else
 			{
@@ -1644,7 +1644,7 @@ yyreduce:
 				}
 				else
 				{
-					insert((yyvsp[-4].str),(yyvsp[-5].iValue),0,"0",FUNCTION);
+					insert((yyvsp[-4].str),(yyvsp[-5].iValue),0,"0",1);
 				}
 				flag_function = false;
 				cscope.pop();
@@ -1752,7 +1752,7 @@ yyreduce:
 
   case 75:
 #line 323 "parser.y" /* yacc.c:1646  */
-    { insert((yyvsp[-5].str),STRUCT,0,"0",(yyvsp[-3].iValue)); }
+    { insert((yyvsp[-5].str),STRUCT,0,"0",0); }
 #line 1757 "y.tab.c" /* yacc.c:1646  */
     break;
 

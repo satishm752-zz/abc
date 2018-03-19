@@ -8,25 +8,31 @@
 struct abc 
 {
 	int a;
+	
 };
 
 int function()
 {
+	float n=2.2;
+	int t;
 	return 0;
+}
+
+void sam(){
+	
+	int t;
+
 }
 
 int main()
 {
-	float n = 2.2;
+	
 	int a;
-	int b=5;
-	int d,e;
-	int c[20];
-	n *= 2;
-	b = a + n ;
-	{
-		int m;	
-	}
+	
+	b=100;
+	int m[100];
+	
+	
 
 	return 0 ;
 }
